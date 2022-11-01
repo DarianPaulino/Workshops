@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>F to C</title>
+</head>
+<body>
+  
+  
+  <h1>Fahrenheit to Celcius Calculator</h1>
+ <input id= "gracie">
+  <button id="berry">Enter</button>
+  <p id="celcius"> 40 degrees</p>
+</body>
+<style>body{
+    text-align: center;
+    background: no-repeat,url(images/calculator-woth-paperwork-background-vector-19859244.jpg);
+      background-size: cover;
+  }</style>
+
+
+<h1>Fahrenheit to Celcius Calculator</h1>
+<input id= "gracie">
+ <button id="berry">Enter</button>
+ <p id="celcius"> 40 degrees</p>
+</body>
+<style>body{
+   text-align: center;
+   background: no-repeat,url(images/calculator-woth-paperwork-background-vector-19859244.jpg);
+     background-size: cover;
+ }</style>
+
+
+
+
+
+
+
+
+<script>
+let paragraph=document.getElementById("celcius");
+let input= document.getElementById("gracie")
+let button=document.getElementById("berry")
+
+
+paragraph.innerHTML= input.value
+let result ;
+function ftoc(){
+  return (input.value- 32) * 5/9
+}
+result=ftoc();
+
+button.addEventListener("click", function(){
+  result=ftoc();
+  paragraph.innerHTML = result
+
+})
+</script>
+</html>

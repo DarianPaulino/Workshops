@@ -1,0 +1,128 @@
+<html>
+
+<head>
+  <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" />
+  <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" />
+
+</head>
+
+<body class="container">
+  <div class="row">
+    <div class="span6">
+      <h1 aligned="center">Mortgage Calculator</h1>
+      <form class="form-horizontal well" name="MortgageMinder">
+        <div class="control-group">
+          <label class="control-label">House Price</label>
+          <div class="controls">
+            <input type="text" onchange="checkForZero(this)" onblur="checkForZero(this)" size="7" value="750000"
+              name="price"></input>
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label">Interest Rate</label>
+          <div class="controls">
+            <input type="text" onchange="checkForZero(this)" onblur="checkForZero(this)" size="4" value="6"
+              name="ir"></input>
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label">Years</label>
+          <div class="controls">
+            <input type="text" onchange="checkForZero(this)" onblur="checkForZero(this)" size="4" value="30"
+              name="term">
+            </input>
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label">Down Payment</label>
+          <div class="controls">
+            <input type="text" size="7" onchange="calculatePayment(this.form)" value="0" name="dp">
+
+            </input>
+          </div>
+        </div>
+        <br />
+        <div class="control-group">
+          <label class="control-label">Mortgage Principle</label>
+          <div class="controls">
+            <input type="text" size="7" placeholder="Automatically Calculated" name="principle">
+
+            </input>
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label">Total Payments</label>
+          <div class="controls">
+            <input type="text" size="6" placeholder="Your Number Of Payments Are" name="payments">
+
+            </input>
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label">Monthly Payment</label>
+          <div class="controls">
+            <input type="text" placeholder="Monthly Payments" size="7" name="pmt">
+            </input>
+          </div>
+        </div>
+        <div class="control-group">
+          <div class="controls">
+            <input type="button" class="btn btn-primary btn-large" onclick="cmdCalc_Click(this.form)" value="Calculate"
+              name="cmdCalc">
+            </input>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <script>function checkForZero(field) {
+      if (field.value == 0 || field.value.length == 0) {
+        alert("This field can't be 0!");
+        field.focus();
+      }
+      else
+        calculatePayment(field.form);
+    }
+
+    function cmdCalc_Click(form) {
+      if (form.price.value == 0 || form.price.value.length == 0) {
+        alert("The Price field can't be 0!");
+        form.price.focus();
+      }
+      else if (form.ir.value == 0 || form.ir.value.length == 0) {
+        alert("The Interest Rate field can't be 0!");
+        form.ir.focus();
+      }
+      else if (form.term.value == 0 || form.term.value.length == 0) {
+        alert("The Term field can't be 0!");
+        form.term.focus();
+      }
+      else
+        calculatePayment(form);
+    }
+
+    function calculatePayment(form) {
+      princ = form.price.value - form.dp.value;
+      intRate = (form.ir.value / 100) / 12;
+      months = form.term.value * 12;
+      form.pmt.value = Math.floor((princ * intRate) / (1 - Math.pow(1 + intRate, (-1 * months))) * 100) / 100;
+      form.principle.value = princ;
+      form.payments.value = months;
+    }</script>
+</body>
+<style>
+   html {
+       background: url(/images/calculator-woth-paperwork-background-vector-19859244.jpg) no-repeat;
+       background-image: linear-gradient(rgba(0,0,0,0.95),rgba(0,0,0,0.78),rgba(0,0,0,0.60),rgba(0,0,0,0))no-repeat,url(images/calculator-woth-paperwork-background-vector-19859244.jpg);
+      background-size: cover;;
+    }
+  body {
+    padding:1px;
+  }
+
+  h2 {
+    text-align: center;
+  }
+</style>
+
+</html>

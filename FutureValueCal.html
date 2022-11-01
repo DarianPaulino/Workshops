@@ -1,0 +1,171 @@
+<body>
+    <main>
+        <h1>Future Value Calculator</h1>
+
+        <label for="investment">Present Value</label>
+        <input type="text" id="investment">&nbsp;$<br>
+
+        <label for="rate">Interest Rate(%)</label>
+        <input type="text" id="rate">&nbsp;%<br>
+
+        <label for="years">Period (years)</label>
+        <input type="text" id="years"><br>
+
+        <label for="future_value">Future Value</label>
+        <input type="text" id="future_value" disabled>&nbsp;$<br>
+
+        <input type="button" id="calculate" value="Calculate"><br>
+        <input type="button" id="reset" value="Reset"><br>
+    </main>
+</body>
+
+<style>
+
+    html {
+       background: url(/images/calculator-woth-paperwork-background-vector-19859244.jpg) no-repeat;
+       background-image: linear-gradient(rgba(0,0,0,0.95),rgba(0,0,0,0.78),rgba(0,0,0,0.60),rgba(0,0,0,0))no-repeat,url(images/calculator-woth-paperwork-background-vector-19859244.jpg);
+      background-size: cover;;
+    }
+
+    main {
+        font-family: Roboto;
+        font-weight: 400;
+        color: #000000;
+        
+
+        width: 500px;
+        margin: 0 auto;
+        padding: 2em;
+        border: 1px solid #f2f2f6;
+        position: relative;
+        top: 100px;
+    }
+
+    h1 {
+        font-family: Roboto;
+        font-weight: 700;
+        text-align: center;
+        color: #435761;
+    }
+
+    label {
+        position: relative;
+        left: 60px;
+        top: 10px;
+        float: left;
+        width: 8em;
+        text-align: right;
+    }
+
+    input {
+        font-size: 11pt;
+        margin-left: 7em;
+        margin-bottom: 1.5em;
+        padding-left: 1em;
+        width: 11em;
+        height: 2em;
+    }
+
+    #calculate,
+    #reset {
+        font-size: 14px;
+        font-weight: 400;
+        color: #FFFFFF;
+        background-color: black;
+        transition: all 0.2s;
+        width: 8em;
+        height: 3em;
+        cursor: pointer;
+        box-shadow: 0 0 0 rgba(0, 0, 0, 0.1);
+        text-align: center;
+        position: relative;
+        left: 160px;
+    }
+
+    #calculate:hover,
+    #reset:hover {
+        box-shadow: 0 0 2em rgba(0, 0, 0, 0.1);
+        background-color: #0C4767;
+    }
+
+    /*----Media!!!!----*/
+    @media screen and (max-width: 768px) {
+
+        main {
+            width: 300px;
+            border: 1px solid #39393A;
+            position: relative;
+            top: 50px;
+        }
+
+        label {
+            position: relative;
+            left: 60px;
+            top: -6px;
+            width: 8em;
+            text-align: left;
+        }
+
+        input {
+            margin-left: 4em;
+        }
+
+        #calculate,
+        #reset {
+            position: relative;
+            left: 30px;
+        }
+    }
+</style>
+
+<script>"use strict";
+
+    var $ = function (id) {
+        return document.getElementById(id);
+    };
+
+    var calculateFV = function (investment, rate, years) {
+        var x = (1 + rate / 100)
+        var future_value = investment * (Math.pow(x, years));
+        future_value = future_value.toFixed(2);
+        return future_value;
+    };
+
+    var processEntries = function () {
+        var investment = parseFloat($("investment").value);
+        var rate = parseFloat($("rate").value);
+        var years = parseFloat($("years").value);
+        var msgError;
+
+        if (isNaN(investment) || investment < 1 || investment > 100000) {
+            msgError = "Total Investment must be a number from 1 to 100,000";
+            alert(msgError);
+            $("investment").focus();
+        } else if (isNaN(rate) || rate < 1 || rate > 15) {
+            msgError = "Anual Interest Rate must be a number from 1 to 15";
+            alert(msgError);
+            $("rate").focus();
+        } else if (isNaN(years) || years < 1 || years > 50) {
+            msgError = "Number of Years must be a number from 1 to 50";
+            alert(msgError);
+            $("years").focus();
+        } else {
+            $("future_value").value = calculateFV(investment, rate, years);
+        }
+    };
+
+    var initApp = function () {
+        $('investment').value = "";
+        $('rate').value = "";
+        $('years').value = "";
+        $('future_value').value = "";
+        $('investment').focus();
+    }
+
+
+    window.onload = function () {
+        $("calculate").onclick = processEntries;
+        $("investment").focus();
+        $("reset").onclick = initApp;
+    };
+</script>
